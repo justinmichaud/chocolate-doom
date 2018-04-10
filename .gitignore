@@ -1,5 +1,6 @@
 .idea/*
 build/*
+doom.wad
 CMDLINE
 INSTALL
 Makefile

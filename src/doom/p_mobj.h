@@ -275,7 +275,10 @@ typedef struct mobj_s
     mapthing_t		spawnpoint;	
 
     // Thing being chased/attacked for tracers.
-    struct mobj_s*	tracer;	
+    struct mobj_s*	tracer;
+
+    char name[8];
+    int hasName;
     
 } mobj_t;
 

@@ -822,7 +822,18 @@ P_SetupLevel
     bodyqueslot = 0;
     deathmatch_p = deathmatchstarts;
     P_LoadThings (lumpnum+ML_THINGS);
-    
+
+    // Mod: randomly spawn enemies in L1 courtyard
+    mapthing_t spawnthing;
+
+    spawnthing.x = SHORT(1200);
+    spawnthing.y = SHORT(-3300);
+    spawnthing.angle = SHORT(90);
+    spawnthing.type = SHORT(9999);
+    spawnthing.options = SHORT(0b0000000000000110);
+
+    P_SpawnMapThing(&spawnthing);
+
     // if deathmatch, randomly spawn the active players
     if (deathmatch)
     {

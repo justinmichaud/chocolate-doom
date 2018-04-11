@@ -340,6 +340,8 @@ short*		mceilingclip;
 fixed_t		spryscale;
 fixed_t		sprtopscreen;
 
+fixed_t thing_screen_top_y;
+
 void R_DrawMaskedColumn (column_t* column)
 {
     int		topscreen;
@@ -374,12 +376,17 @@ void R_DrawMaskedColumn (column_t* column)
 	    colfunc ();	
 	}
 	column = (column_t *)(  (byte *)column + column->length + 4);
+
+    if (thing_screen_top_y > dc_yl) {
+        thing_screen_top_y = dc_yl;
+    }
+
     }
 	
     dc_texturemid = basetexturemid;
 }
 
-
+void M_WriteText(int x, int y, char *string);
 
 //
 // R_DrawVisSprite
@@ -395,7 +402,8 @@ R_DrawVisSprite
     int			texturecolumn;
     fixed_t		frac;
     patch_t*		patch;
-	
+
+	thing_screen_top_y = viewheight;
 	
     patch = W_CacheLumpNum (vis->patch+firstspritelump, PU_CACHE);
 
@@ -432,6 +440,13 @@ R_DrawVisSprite
     }
 
     colfunc = basecolfunc;
+
+    if (vis->hasName && vis->x1 > 16 && vis->x1+8*4 < viewwidth-16) {
+        if ( thing_screen_top_y + 13 > viewheight ){
+           thing_screen_top_y = viewheight - 13;
+        }
+        M_WriteText(vis->x1, thing_screen_top_y + 6, vis->name);
+    }
 }
 
 
@@ -551,6 +566,11 @@ void R_ProjectSprite (mobj_t* thing)
     vis->x2 = x2 >= viewwidth ? viewwidth-1 : x2;	
     iscale = FixedDiv (FRACUNIT, xscale);
 
+    if (thing->hasName) {
+        vis->hasName = true;
+        strcpy(vis->name, thing->name);
+    } else vis->hasName = false;
+
     if (flip)
     {
 	vis->startfrac = spritewidth[lump]-1;
@@ -592,7 +612,7 @@ void R_ProjectSprite (mobj_t* thing)
 	    index = MAXLIGHTSCALE-1;
 
 	vis->colormap = spritelights[index];
-    }	
+    }
 }
 
 
@@ -688,7 +708,8 @@ void R_DrawPSprite (pspdef_t* psp)
     vis->x1 = x1 < 0 ? 0 : x1;
     vis->x2 = x2 >= viewwidth ? viewwidth-1 : x2;	
     vis->scale = pspritescale<<detailshift;
-    
+    vis->hasName = false;
+
     if (flip)
     {
 	vis->xiscale = -pspriteiscale;

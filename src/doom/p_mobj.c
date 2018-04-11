@@ -537,6 +537,7 @@ P_SpawnMobj
     mobj->height = info->height;
     mobj->flags = info->flags;
     mobj->health = info->spawnhealth;
+    mobj->hasName = false;
 
     if (gameskill != sk_nightmare)
 	mobj->reactiontime = info->reactiontime;
@@ -763,6 +764,14 @@ void P_SpawnMapThing (mapthing_t* mthing)
     fixed_t		x;
     fixed_t		y;
     fixed_t		z;
+
+    int hasName = false;
+    char *name = "hello";
+
+    if (mthing->type == 9999) {
+        mthing->type = 3004;
+        hasName = true;
+    }
 		
     // count deathmatch start positions
     if (mthing->type == 11)
@@ -852,6 +861,11 @@ void P_SpawnMapThing (mapthing_t* mthing)
     mobj->angle = ANG45 * (mthing->angle/45);
     if (mthing->options & MTF_AMBUSH)
 	mobj->flags |= MF_AMBUSH;
+
+	if (hasName) {
+	    mobj->hasName = true;
+	    strcpy(mobj->name, name);
+	} else mobj->hasName = false;
 }
 
 

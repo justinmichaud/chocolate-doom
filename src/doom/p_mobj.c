@@ -756,7 +756,7 @@ void P_SpawnPlayer (mapthing_t* mthing)
 // The fields of the mapthing should
 // already be in host byte order.
 //
-void P_SpawnMapThing (mapthing_t* mthing)
+void P_SpawnMapThingWithName (mapthing_t* mthing, char* name)
 {
     int			i;
     int			bit;
@@ -764,14 +764,6 @@ void P_SpawnMapThing (mapthing_t* mthing)
     fixed_t		x;
     fixed_t		y;
     fixed_t		z;
-
-    int hasName = false;
-    char *name = "hello";
-
-    if (mthing->type == 9999) {
-        mthing->type = 3004;
-        hasName = true;
-    }
 		
     // count deathmatch start positions
     if (mthing->type == 11)
@@ -862,11 +854,12 @@ void P_SpawnMapThing (mapthing_t* mthing)
     if (mthing->options & MTF_AMBUSH)
 	mobj->flags |= MF_AMBUSH;
 
-	if (hasName) {
+	if (name) {
 	    mobj->hasName = true;
 	    strcpy(mobj->name, name);
 	} else mobj->hasName = false;
 }
+void P_SpawnMapThing (mapthing_t* mthing) { P_SpawnMapThingWithName(mthing, NULL); }
 
 
 

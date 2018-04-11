@@ -341,6 +341,7 @@ fixed_t		spryscale;
 fixed_t		sprtopscreen;
 
 fixed_t thing_screen_top_y;
+int hasDrawn;
 
 void R_DrawMaskedColumn (column_t* column)
 {
@@ -373,7 +374,9 @@ void R_DrawMaskedColumn (column_t* column)
 
 	    // Drawn by either R_DrawColumn
 	    //  or (SHADOW) R_DrawFuzzColumn.
-	    colfunc ();	
+	    colfunc ();
+
+	    hasDrawn = true;
 	}
 	column = (column_t *)(  (byte *)column + column->length + 4);
 
@@ -404,6 +407,7 @@ R_DrawVisSprite
     patch_t*		patch;
 
 	thing_screen_top_y = viewheight;
+	hasDrawn = false;
 	
     patch = W_CacheLumpNum (vis->patch+firstspritelump, PU_CACHE);
 
@@ -441,7 +445,7 @@ R_DrawVisSprite
 
     colfunc = basecolfunc;
 
-    if (vis->hasName && vis->x1 > 16 && vis->x1+8*4 < viewwidth-16) {
+    if (hasDrawn && vis->hasName && vis->x1 > 16 && vis->x1+8*4 < viewwidth-16) {
         if ( thing_screen_top_y + 13 > viewheight ){
            thing_screen_top_y = viewheight - 13;
         }

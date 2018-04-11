@@ -42,6 +42,7 @@
 
 
 void	P_SpawnMapThing (mapthing_t*	mthing);
+void	P_SpawnMapThingWithName (mapthing_t*	mthing, char *name);
 
 
 //
@@ -829,10 +830,19 @@ P_SetupLevel
     spawnthing.x = SHORT(1200);
     spawnthing.y = SHORT(-3300);
     spawnthing.angle = SHORT(90);
-    spawnthing.type = SHORT(9999);
+    spawnthing.type = SHORT(3004);
     spawnthing.options = SHORT(0b0000000000000110);
 
-    P_SpawnMapThing(&spawnthing);
+    FILE *fd = popen("echo 'POOPBUG hello\nPOOBBAG 123abc'", "r");
+    if (!fd) {
+        printf("Could not check for incidents\n");
+        exit(1);
+    }
+    pclose(fd);
+
+    P_SpawnMapThingWithName(&spawnthing, "hello");
+    spawnthing.x += 100;
+    P_SpawnMapThingWithName(&spawnthing, "1234567");
 
     // if deathmatch, randomly spawn the active players
     if (deathmatch)

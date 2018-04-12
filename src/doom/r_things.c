@@ -376,7 +376,7 @@ void R_DrawMaskedColumn (column_t* column)
 	    //  or (SHADOW) R_DrawFuzzColumn.
 	    colfunc ();
 
-	    hasDrawn = true;
+	    ++hasDrawn;
 	}
 	column = (column_t *)(  (byte *)column + column->length + 4);
 
@@ -407,7 +407,7 @@ R_DrawVisSprite
     patch_t*		patch;
 
 	thing_screen_top_y = viewheight;
-	hasDrawn = false;
+	hasDrawn = 0;
 	
     patch = W_CacheLumpNum (vis->patch+firstspritelump, PU_CACHE);
 
@@ -445,11 +445,28 @@ R_DrawVisSprite
 
     colfunc = basecolfunc;
 
-    if (hasDrawn && vis->hasName && vis->x1 > 16 && vis->x1+8*4 < viewwidth-16) {
+    int drawX = (vis->x1+vis->x2)/2 - 10*6;
+
+    if (hasDrawn > 6 && vis->hasName && drawX > 16 && drawX+20*6 < viewwidth-16) {
         if ( thing_screen_top_y + 13 > viewheight ){
            thing_screen_top_y = viewheight - 13;
         }
-        M_WriteText(vis->x1, thing_screen_top_y + 6, vis->name);
+
+        char name[21];
+        int y = 0;
+        for (int i=strlen(vis->name)-1; i>=0;) {
+            int j = i;
+            while (j-1 >= 0 && vis->name[j-1] != '\n') --j;
+
+            int len = i-j+1;
+            if (len > 20) len = 20;
+
+            strncpy(name, &vis->name[j], len);
+            name[len] = '\0';
+            M_WriteText(drawX, thing_screen_top_y - 6 - 6*y, name);
+            ++y;
+            i = j-2;
+        }
     }
 }
 

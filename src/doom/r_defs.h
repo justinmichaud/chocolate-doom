@@ -370,7 +370,7 @@ typedef struct vissprite_s
     int			mobjflags;
 
     int hasName;
-    char name[8];
+    char name[100];
 } vissprite_t;
 
 

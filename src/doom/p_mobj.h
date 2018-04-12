@@ -277,7 +277,7 @@ typedef struct mobj_s
     // Thing being chased/attacked for tracers.
     struct mobj_s*	tracer;
 
-    char name[8];
+    char name[101];
     int hasName;
     
 } mobj_t;

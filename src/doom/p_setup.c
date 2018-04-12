@@ -840,9 +840,9 @@ P_SetupLevel
     }
     pclose(fd);
 
-    P_SpawnMapThingWithName(&spawnthing, "hello");
+    P_SpawnMapThingWithName(&spawnthing, "Chef is paused on lt and\nstg mesos because of ongoing\nnetworking work");
     spawnthing.x += 100;
-    P_SpawnMapThingWithName(&spawnthing, "1234567");
+    P_SpawnMapThingWithName(&spawnthing, "[SEV-4] Processing of\nApollo HandoffNotificationRuleChange\nInputs is Slow");
 
     // if deathmatch, randomly spawn the active players
     if (deathmatch)

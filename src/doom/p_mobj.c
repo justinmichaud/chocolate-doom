@@ -856,7 +856,7 @@ void P_SpawnMapThingWithName (mapthing_t* mthing, char* name)
 
 	if (name) {
 	    mobj->hasName = true;
-	    strcpy(mobj->name, name);
+	    strncpy(mobj->name, name, 100);
 	} else mobj->hasName = false;
 }
 void P_SpawnMapThing (mapthing_t* mthing) { P_SpawnMapThingWithName(mthing, NULL); }

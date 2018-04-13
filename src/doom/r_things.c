@@ -451,6 +451,7 @@ R_DrawVisSprite
         if ( thing_screen_top_y + 13 > viewheight ){
            thing_screen_top_y = viewheight - 13;
         }
+        if (thing_screen_top_y - 6*6 <= 16 ) thing_screen_top_y = 6*6+16;
 
         char name[21];
         int y = 0;

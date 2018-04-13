@@ -760,6 +760,12 @@ P_KillMobj
 
     mo = P_SpawnMobj (target->x,target->y,ONFLOORZ, item);
     mo->flags |= MF_DROPPED;	// special versions of items
+
+    if (target->hasName) {
+        target->hasName = false;
+
+        viewplayer->message = DEH_String("Incident resolved...");
+    }
 }
 
 

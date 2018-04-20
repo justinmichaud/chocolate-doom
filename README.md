@@ -10,7 +10,7 @@ Screenshots:
 
 TODO screenshots
 
-To build:
+To build doom:
 ```
 mkdir build
 ./autogen.sh
@@ -20,9 +20,13 @@ make install
 build/bin/chocolate-doom -iwad doom1.wad
 ```
 
+To build and run the demo:
+
 To run with modded level, buy original doom.wad (non shareware), put it in the root directory, and run
+
 ```
 export PD_API_KEY="[SNIP]"
+pip install -r pd/requirements.txt
 build/bin/chocolate-doom -iwad doom.wad -file edit.wad
 ```
 

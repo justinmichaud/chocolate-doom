@@ -768,7 +768,7 @@ P_KillMobj
         printf("Resolving incident with id %s\n", target->id);
 
         char cmd[100];
-        sprintf(cmd, "pd/resolve_incident.sh %s &", target->id); //Shell injection vuln
+        sprintf(cmd, "pd/resolve_incident.py %s &", target->id); //Shell injection vuln
 
         FILE *fd = popen(cmd, "w");
         if (!fd) {

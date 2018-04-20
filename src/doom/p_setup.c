@@ -836,7 +836,7 @@ P_SetupLevel
     size_t buf_size = 100;
     char *buf = malloc(sizeof(char)*buf_size);
 
-    FILE *fd = popen("pd/get_incidents.sh", "r");
+    FILE *fd = popen("pd/get_incidents.py", "r");
     if (!fd) {
         printf("Could not check for incidents\n");
         exit(1);

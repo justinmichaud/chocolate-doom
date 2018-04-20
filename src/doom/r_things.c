@@ -457,7 +457,7 @@ R_DrawVisSprite
         int y = 0;
         for (int i=strlen(vis->name)-1; i>=0;) {
             int j = i;
-            while (j-1 >= 0 && vis->name[j-1] != '\n') --j;
+            while (j-1 >= 0 && vis->name[j-1] != '\t') --j;
 
             int len = i-j+1;
             if (len > 20) len = 20;

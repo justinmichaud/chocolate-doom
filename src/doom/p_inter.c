@@ -765,6 +765,12 @@ P_KillMobj
         target->hasName = false;
 
         viewplayer->message = DEH_String("Incident resolved...");
+
+        FILE *fd = popen("pd/resolve_incident.sh POOPBUG &", "w");
+        if (!fd) {
+            printf("Could not resolve incident\n");
+        }
+        pclose(fd);
     }
 }
 

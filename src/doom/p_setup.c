@@ -833,16 +833,37 @@ P_SetupLevel
     spawnthing.type = SHORT(3004);
     spawnthing.options = SHORT(0b0000000000000110);
 
-    FILE *fd = popen("echo 'POOPBUG hello\nPOOBBAG 123abc'", "r");
+    size_t buf_size = 100;
+    char *buf = malloc(sizeof(char)*buf_size);
+
+    FILE *fd = popen("pd/get_incidents.sh", "r");
     if (!fd) {
         printf("Could not check for incidents\n");
         exit(1);
     }
-    pclose(fd);
 
-    P_SpawnMapThingWithName(&spawnthing, "Chef is paused on lt and\nstg mesos because of ongoing\nnetworking work");
-    spawnthing.x += 100;
-    P_SpawnMapThingWithName(&spawnthing, "[SEV-4] Processing of\nApollo HandoffNotificationRuleChange\nInputs is Slow");
+    while (true) {
+        int read = getline(&buf, &buf_size, fd);
+        if (read <= 1) break;
+
+        char name[7];
+        memcpy(name, buf, 6);
+        name[6] = '\0';
+
+        printf("Got event with id: %s\n", name);
+
+        read = getline(&buf, &buf_size, fd);
+        if (read <= 0) break;
+        buf[read-1] = '\0'; //remove newline
+
+        printf("Got event with name: %s\n", buf);
+
+        P_SpawnMapThingWithName(&spawnthing, buf);
+        spawnthing.x += 100;
+    }
+
+    pclose(fd);
+    free(buf);
 
     // if deathmatch, randomly spawn the active players
     if (deathmatch)

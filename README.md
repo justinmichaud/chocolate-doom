@@ -4,6 +4,7 @@ Get revenge on your incidents by shooting them! This mod of doom spawns an enemy
 and resolves them when shot.
 
 Disclaimer: This is not in any way affiliated with or endorsed by PagerDuty. I just made this for fun.
+Disclaimer: This code is full of potential buffer overruns and shell injection vulnerabilities. Please do not run this on an account you do not control!
 
 Screenshots:
 
@@ -21,6 +22,7 @@ build/bin/chocolate-doom -iwad doom1.wad
 
 To run with modded level, buy original doom.wad (non shareware), put it in the root directory, and run
 ```
+export PD_API_KEY="[SNIP]"
 build/bin/chocolate-doom -iwad doom.wad -file edit.wad
 ```
 

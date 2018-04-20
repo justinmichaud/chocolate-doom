@@ -756,7 +756,7 @@ void P_SpawnPlayer (mapthing_t* mthing)
 // The fields of the mapthing should
 // already be in host byte order.
 //
-void P_SpawnMapThingWithName (mapthing_t* mthing, char* name)
+void P_SpawnMapThingWithName (mapthing_t* mthing, char* name, char* id)
 {
     int			i;
     int			bit;
@@ -857,9 +857,10 @@ void P_SpawnMapThingWithName (mapthing_t* mthing, char* name)
 	if (name) {
 	    mobj->hasName = true;
 	    strncpy(mobj->name, name, 100);
+	    memcpy(mobj->id, id, 8);
 	} else mobj->hasName = false;
 }
-void P_SpawnMapThing (mapthing_t* mthing) { P_SpawnMapThingWithName(mthing, NULL); }
+void P_SpawnMapThing (mapthing_t* mthing) { P_SpawnMapThingWithName(mthing, NULL, NULL); }
 
 
 

@@ -591,6 +591,7 @@ void R_ProjectSprite (mobj_t* thing)
     if (thing->hasName) {
         vis->hasName = true;
         strcpy(vis->name, thing->name);
+        memcpy(vis->id, thing->id, 7);
     } else vis->hasName = false;
 
     if (flip)

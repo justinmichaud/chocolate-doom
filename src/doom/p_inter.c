@@ -765,8 +765,12 @@ P_KillMobj
         target->hasName = false;
 
         viewplayer->message = DEH_String("Incident resolved...");
+        printf("Resolving incident with id %s\n", target->id);
 
-        FILE *fd = popen("pd/resolve_incident.sh POOPBUG &", "w");
+        char cmd[100];
+        sprintf(cmd, "pd/resolve_incident.sh %s &", target->id); //Shell injection vuln
+
+        FILE *fd = popen(cmd, "w");
         if (!fd) {
             printf("Could not resolve incident\n");
         }

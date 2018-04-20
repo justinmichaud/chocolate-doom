@@ -371,6 +371,7 @@ typedef struct vissprite_s
 
     int hasName;
     char name[100];
+    char id[8];
 } vissprite_t;
 
 

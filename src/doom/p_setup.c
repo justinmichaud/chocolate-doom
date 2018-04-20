@@ -42,7 +42,7 @@
 
 
 void	P_SpawnMapThing (mapthing_t*	mthing);
-void	P_SpawnMapThingWithName (mapthing_t*	mthing, char *name);
+void	P_SpawnMapThingWithName (mapthing_t*	mthing, char *name, char *id);
 
 
 //
@@ -846,9 +846,9 @@ P_SetupLevel
         int read = getline(&buf, &buf_size, fd);
         if (read <= 1) break;
 
-        char name[7];
-        memcpy(name, buf, 6);
-        name[6] = '\0';
+        char name[8];
+        memcpy(name, buf, 8);
+        name[7] = '\0';
 
         printf("Got event with id: %s\n", name);
 
@@ -858,7 +858,7 @@ P_SetupLevel
 
         printf("Got event with name: %s\n", buf);
 
-        P_SpawnMapThingWithName(&spawnthing, buf);
+        P_SpawnMapThingWithName(&spawnthing, buf, &name);
         spawnthing.x += 100;
     }
 

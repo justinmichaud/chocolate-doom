@@ -278,6 +278,7 @@ typedef struct mobj_s
     struct mobj_s*	tracer;
 
     char name[101];
+    char id[8];
     int hasName;
     
 } mobj_t;

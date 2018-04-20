@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
-print("POOPBUG")
-print("Chef is paused on lt and\tstg mesos because of ongoing\tnetworking work\t")
+import os
+import pypd
+pypd.api_key = os.environ['PD_API_KEY']
 
-print("POOPBAG")
-print("[SEV-4] Processing of\tApollo HandoffNotificationRuleChange\tInputs is Slow")
+incidents = pypd.Incident.find(maximum=10, statuses=['triggered', 'acknowledged'])
+
+for i in incidents:
+    print(i.id)
+    print(i['description'])

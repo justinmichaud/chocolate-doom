@@ -827,8 +827,8 @@ P_SetupLevel
     // Mod: randomly spawn enemies in L1 courtyard
     mapthing_t spawnthing;
 
-    spawnthing.x = SHORT(1200);
-    spawnthing.y = SHORT(-3300);
+    spawnthing.x = SHORT(1496);
+    spawnthing.y = SHORT(-3560);
     spawnthing.angle = SHORT(90);
     spawnthing.type = SHORT(3004);
     spawnthing.options = SHORT(0b0000000000000110);

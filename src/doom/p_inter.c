@@ -804,6 +804,11 @@ P_DamageMobj
     player_t*	player;
     fixed_t	thrust;
     int		temp;
+
+    if (target->hasName && (!source || !source->player)) {
+        damage = 0;
+        return;
+    }
 	
     if ( !(target->flags & MF_SHOOTABLE) )
 	return;	// shouldn't happen...

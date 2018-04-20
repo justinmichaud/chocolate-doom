@@ -8,7 +8,10 @@ Disclaimer: This code is full of potential buffer overruns and shell injection v
 
 Screenshots:
 
-TODO screenshots
+![](screenshots/1.png)
+![](screenshots/2.png)
+![](screenshots/3.png)
+![](screenshots/4.png)
 
 To build doom:
 ```

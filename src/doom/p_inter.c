@@ -785,7 +785,7 @@ P_KillMobj
         pclose(fd);
 
         if (incident_count <= 0) {
-            M_StartMessage(DEH_String("You are safe... for now\nPress any key to continue"),PD_EndGameResponse,true);
+            M_StartMessage(DEH_String("You are safe... for now\nPress y to continue"),PD_EndGameResponse,true);
         }
     }
 }

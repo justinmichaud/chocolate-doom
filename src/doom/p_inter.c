@@ -659,6 +659,13 @@ P_TouchSpecialThing
 	S_StartSound (NULL, sound);
 }
 
+void M_StartMessage(char *string,void *routine,boolean input);
+extern int incident_count;
+
+void PD_EndGameResponse(int key)
+{
+    I_Quit ();
+}
 
 //
 // KillMobj
@@ -764,8 +771,9 @@ P_KillMobj
     if (target->hasName) {
         target->hasName = false;
 
+        --incident_count;
         viewplayer->message = DEH_String("Incident resolved...");
-        printf("Resolving incident with id %s\n", target->id);
+        printf("Resolving incident with id %s, %d remaining\n", target->id, incident_count);
 
         char cmd[100];
         sprintf(cmd, "pd/resolve_incident.py %s &", target->id); //Shell injection vuln
@@ -775,6 +783,10 @@ P_KillMobj
             printf("Could not resolve incident\n");
         }
         pclose(fd);
+
+        if (incident_count <= 0) {
+            M_StartMessage(DEH_String("You are safe... for now\nPress any key to continue"),PD_EndGameResponse,true);
+        }
     }
 }
 

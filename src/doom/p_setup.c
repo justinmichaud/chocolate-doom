@@ -748,6 +748,8 @@ static void P_LoadReject(int lumpnum)
     }
 }
 
+int incident_count = 0;
+
 //
 // P_SetupLevel
 //
@@ -859,6 +861,9 @@ P_SetupLevel
         printf("Got event with name: %s\n", buf);
 
         P_SpawnMapThingWithName(&spawnthing, buf, &name);
+        ++incident_count;
+
+        printf("Incident count: %d\n", incident_count);
         spawnthing.x += 100;
     }
 
